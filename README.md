@@ -145,9 +145,9 @@ npm run dev
 - **Body:**
   ```json
   {
-    "email": email,
-    "threshold": temperature,
-    "condition": above or below,
-    "city": city
+    "email": "email",
+    "threshold": "temperature",
+    "condition": "above or below",
+    "city": "city"
   }
   ```
