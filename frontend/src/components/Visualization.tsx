@@ -3,16 +3,23 @@ import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
 
+interface Forecast {
+    temp: number[];
+    min: number[];
+    max: number[];
+}
+
 export const Visualization: React.FC = () => {
     const chartRef = useRef<HTMLCanvasElement>(null);
-    const [delhiForecast, setDelhiForecast] = useState();
-    const [mumbaiForecast, setMumbaiForecast] = useState();
-    const [kolkataForecast, setKolkataForecast] = useState();
-    const [chennaiForecast, setChennaiForecast] = useState();
-    const [bengaluruForecast, setBengaluruForecast] = useState();
-    const [hyderabadForecast, setHyderabadForecast] = useState();
-
-    const [currentCityForecast, setCurrentCityForecast] = useState();
+    const [delhiForecast, setDelhiForecast] = useState<Forecast | undefined>();
+    const [mumbaiForecast, setMumbaiForecast] = useState<Forecast | undefined>();
+    const [kolkataForecast, setKolkataForecast] = useState<Forecast | undefined>();
+    const [chennaiForecast, setChennaiForecast] = useState<Forecast | undefined>();
+    const [bengaluruForecast, setBengaluruForecast] = useState<Forecast | undefined>();
+    const [hyderabadForecast, setHyderabadForecast] = useState<Forecast | undefined>();
+    
+    const [currentCityForecast, setCurrentCityForecast] = useState<Forecast | undefined>();
+    
     const [currentCity, setCurrentCity] = useState<string>("Delhi");
 
     // Handle city forecast change

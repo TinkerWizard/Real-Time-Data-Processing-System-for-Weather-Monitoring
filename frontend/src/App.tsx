@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { Box, ButtonGroup, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Box, ButtonGroup, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Dialog, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { WeatherReport } from './models/WeatherReport'
 import { Visualization } from './components/Visualization';
 import { Alert } from './components/Alert';

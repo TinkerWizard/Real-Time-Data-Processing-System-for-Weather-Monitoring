@@ -1,6 +1,5 @@
 import { FormControl, TextField, FormHelperText, Button, Select, MenuItem, InputLabel, Stack } from "@mui/material";
 import { useState } from "react";
-import axios from "axios";
 
 export const Alert: React.FC = () => {
     const [email, setEmail] = useState<string>('');
@@ -34,7 +33,11 @@ export const Alert: React.FC = () => {
     // Handle form submission
     const handleAlertSignUpClick = async () => {
         let valid = true;
-
+        
+        console.log("--------------------",city);
+        console.log("--------------------",threshold);
+        console.log("--------------------",condition);
+        console.log("--------------------",email);
         // Email validation
         if (email.length === 0) {
             setEmailError("Please enter your email");
@@ -55,18 +58,19 @@ export const Alert: React.FC = () => {
 
         // If valid, send data to backend
         if (valid) {
-            const constraint = {
-                type: 'temperature',
-                threshold: Number(threshold),
-                condition // Will be either 'below' or 'above'
-            };
-
             try {
-                const response = await axios.post('http://localhost:5000/create-alert', {
-                    email,
-                    constraints: [constraint] // Sending as an array of constraints
+                const response = await fetch('http://localhost:3000/create-alert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({email, threshold, condition, city})
                 });
-                alert(`Alert created successfully: ${response.data.alert}`);
+                const data = await response.json();
+                if(response.ok)
+                {
+                    alert(data.message);
+                }
             } catch (error: any) {
                 alert(`Error creating alert: ${error.response.data.error}`);
             }
@@ -121,8 +125,8 @@ export const Alert: React.FC = () => {
                 <InputLabel id="city-label">City</InputLabel>
                 <Select
                     label="City"
-                    value={condition}
-                    onChange={handleConditionChange}
+                    value={city}
+                    onChange={handleCityChange}
                 >
                     <MenuItem value="Bengaluru">Bengaluru</MenuItem>
                     <MenuItem value="Delhi">Delhi</MenuItem>
