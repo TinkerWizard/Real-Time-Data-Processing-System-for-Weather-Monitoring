@@ -4,7 +4,7 @@ import axios from "axios";
 import { Request, Response } from "express";
 import WeatherReport from "../models/weatherReport";
 import { Alert } from "../models/alert";
-
+import { startAlertSystem } from "../utils/alert";
 const cities: string[] = [
   "Delhi",
   "Mumbai",
@@ -43,6 +43,7 @@ export const fetchWeatherData = async (
   req: Request,
   res: Response
 ): Promise<void> => {
+  startAlertSystem(5);
   try {
     const apiKey = process.env.OPEN_WEATHER_API_KEY;
     const weatherPromises = cities.map((city) =>
@@ -354,10 +355,26 @@ export const getWeatherData = async (
     res.status(500).send("Server Error");
   }
 };
-
 export const createAlert = async (
   req: Request,
   res: Response
 ): Promise<void> => {
+  try {
+    const { email, threshold, condition, city } = req.body;
 
-}
+    console.log(email, threshold, condition, city);
+
+    // Use findOneAndUpdate to check if the email already exists and update or create a new record
+    const updatedAlert = await Alert.findOneAndUpdate(
+      { email },  // Search by email
+      { threshold, condition, city },  // Update the threshold, condition, and city
+      { new: true, upsert: true, useFindAndModify: false }  // Create a new record if it doesn't exist
+    );
+
+    // Send a success response
+    res.status(201).json({ message: 'Alert created/updated successfully', alert: updatedAlert });
+  } catch (error: any) {
+    // Handle any errors that occur
+    res.status(500).json({ message: 'Failed to create or update alert', error: error.message });
+  }
+};
