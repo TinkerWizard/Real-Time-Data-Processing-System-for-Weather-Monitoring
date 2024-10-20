@@ -3,6 +3,7 @@ dotenv.config();
 import axios from "axios";
 import { Request, Response } from "express";
 import WeatherReport from "../models/weatherReport";
+import { Alert } from "../models/alert";
 
 const cities: string[] = [
   "Delhi",
@@ -353,3 +354,10 @@ export const getWeatherData = async (
     res.status(500).send("Server Error");
   }
 };
+
+export const createAlert = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+
+}
