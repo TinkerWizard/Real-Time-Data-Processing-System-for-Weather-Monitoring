@@ -97,7 +97,7 @@ npm run dev
 - **Description:** This endpoint gets the forecast weather which is then used in making the graph.
   ![Fetch Forecast](./images/fetch-forecast.png)
 
-- **Response(AST):**
+- **Response:**
   ```json
   {
     "delhiTemp": {
@@ -109,7 +109,7 @@ npm run dev
   }
   ```
 
-### Get Weather Summary From DB**
+### Get Weather Summary From DB
 
 - **URL:** `/data`
 - **Method:** `GET`
@@ -117,7 +117,7 @@ npm run dev
     ![Evaluate rules](./images/data.png)
 
 
-- **Response(boolean):**
+- **Response:**
   ```json
   {
         "_id": "6712a27df63dc19555d029c0",
